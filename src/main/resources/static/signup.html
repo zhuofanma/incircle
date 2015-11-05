@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>Signup</title>
+    <style type="text/css">
+        .error {
+        font-size: 16px;
+        color: red;
+        }
+    </style>
+
+</head>a
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <h2>Please Signup</h2>
+            <br>
+            <form method="post" action="/signupAccount">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="UserInput">Username</label>
+                            <input class="form-control" name="username" placeholder="Enter username" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="passwordInput">Password</label>
+                            <input class="form-control" type="password" name="password" placeholder="Enter password" value="">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <!--<a class="btn btn-default" href="/" role="button">Return</a>-->
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
