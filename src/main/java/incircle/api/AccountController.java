@@ -5,10 +5,7 @@ import incircle.account.model.Account;
 import incircle.domain.dao.WorkDao;
 import incircle.domain.model.Work;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhuofanma on 11/4/15.
@@ -26,5 +23,10 @@ public class AccountController {
     @RequestMapping(value="/{username}", method= RequestMethod.GET)
     Account getAccount(@PathVariable String username) {
         return accountDao.findByAccountName(username);
+    }
+
+    @RequestMapping(value="/{username}", method= RequestMethod.POST)
+    Account createAccount(@RequestBody Account account) {
+        return accountDao.updateAccount(account, false);
     }
 }

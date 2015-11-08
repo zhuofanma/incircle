@@ -1,5 +1,10 @@
 package incircle.account.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import incircle.domain.model.Connection;
+import incircle.domain.model.Education;
+import incircle.domain.model.Work;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Account {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
+	@Column(name = "ACCOUNT_ID", unique = true, nullable = false)
 	private Long id;
 	@Column(name = "username", unique = true, nullable = false, length = 45)
 	private String username;
@@ -24,8 +29,9 @@ public class Account {
 
 	private String lastname;
 
-	@Column(name = "primaryemail", unique = true, nullable = false)
-	private String primaryemail;
+	private String picture;
+
+	private String video;
 
 	private String workemail;
 
@@ -36,8 +42,21 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "willingness")
 	private Willingness willingness;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
 	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
+
+	@OneToMany(mappedBy = "account")
+	private Set<Work> work = new HashSet<Work>(0);
+
+	@OneToMany(mappedBy = "account")
+	private Set<Education> education = new HashSet<Education>(0);
+
+	@OneToMany(mappedBy = "account1")
+	private Set<Connection> connection1 = new HashSet<Connection>(0);
+
+	@OneToMany(mappedBy = "account2")
+	private Set<Connection> connection2 = new HashSet<Connection>(0);
 
 	public Account() {
 	}
@@ -55,7 +74,14 @@ public class Account {
 		this.accountRole = accountRole;
 	}
 
-	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -64,7 +90,7 @@ public class Account {
 		this.username = username;
 	}
 
-	
+	@JsonIgnore
 	public String getPassword() {
 		return this.password;
 	}
@@ -82,65 +108,36 @@ public class Account {
 		this.enabled = enabled;
 	}
 
-	
-	public Set<AccountRole> getAccountRole() {
-		return this.accountRole;
-	}
-
-	public void setAccountRole(Set<AccountRole> accountRole) {
-		this.accountRole = accountRole;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
+	public String getFirstname() {
+		return firstname;
 	}
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getLastname() {
+		return lastname;
 	}
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setPersonalemail(String personalemail) {
-		this.personalemail = personalemail;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
-	public String getPersonalemail() {
-		return personalemail;
+	public String getVideo() {
+		return video;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPrimaryemail(String primaryemail) {
-		this.primaryemail = primaryemail;
-	}
-
-	public String getPrimaryemail() {
-		return primaryemail;
-	}
-
-	public void setWillingness(Willingness willingness) {
-		this.willingness = willingness;
+	public void setVideo(String video) {
+		this.video = video;
 	}
 
 	public String getWorkemail() {
@@ -151,7 +148,37 @@ public class Account {
 		this.workemail = workemail;
 	}
 
+	public String getPersonalemail() {
+		return personalemail;
+	}
+
+	public void setPersonalemail(String personalemail) {
+		this.personalemail = personalemail;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public Willingness getWillingness() {
 		return willingness;
 	}
+
+	public void setWillingness(Willingness willingness) {
+		this.willingness = willingness;
+	}
+
+	public Set<AccountRole> getAccountRole() {
+		return this.accountRole;
+	}
+
+	public void setAccountRole(Set<AccountRole> accountRole) {
+		this.accountRole = accountRole;
+	}
+
+
 }

@@ -18,6 +18,6 @@
         <mapping class="incircle.account.model.AccountRole"/>
         <mapping class="incircle.domain.model.Education"/>
         <mapping class="incircle.domain.model.Work"/>
-
+        <mapping class="incircle.domain.model.Connection"/>
     </session-factory>
 </hibernate-configuration>

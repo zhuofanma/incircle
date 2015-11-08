@@ -1,5 +1,8 @@
 package incircle.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import incircle.account.model.Account;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -10,12 +13,17 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by zhuofanma on 11/3/15.
  */
 @Entity
-@Table(name="education")
+@Table(name="educations")
 public class Education {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "education_id", unique = true, nullable = false)
+    @Column(name = "EDUCATION_ID", unique = true, nullable = false)
     private Long id;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account account;
 
     private String school;
 
@@ -85,5 +93,13 @@ public class Education {
 
     public boolean getIscurrent() {
         return isCurrent;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

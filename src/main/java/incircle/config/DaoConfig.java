@@ -4,10 +4,7 @@ import incircle.account.dao.AccountDao;
 import incircle.account.dao.AccountDaoImpl;
 import incircle.account.dao.AccountRoleDao;
 import incircle.account.dao.AccountRoleDaoImpl;
-import incircle.domain.dao.EducationDao;
-import incircle.domain.dao.EducationDaoImpl;
-import incircle.domain.dao.WorkDao;
-import incircle.domain.dao.WorkDaoImpl;
+import incircle.domain.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,6 +49,14 @@ public class DaoConfig {
 		WorkDaoImpl workDaoImpl = new WorkDaoImpl();
 		workDaoImpl.setSessionFactory(databaseConfig.sessionFactory());
 		return workDaoImpl;
+
+	}
+
+	@Bean
+	public ConnectionDao connectionDao() {
+		ConnectionDaoImpl connectionDaoImpl = new ConnectionDaoImpl();
+		connectionDaoImpl.setSessionFactory(databaseConfig.sessionFactory());
+		return connectionDaoImpl;
 
 	}
 }

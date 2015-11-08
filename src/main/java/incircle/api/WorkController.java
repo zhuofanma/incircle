@@ -3,10 +3,7 @@ package incircle.api;
 import incircle.domain.dao.WorkDao;
 import incircle.domain.model.Work;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhuofanma on 11/4/15.
@@ -24,5 +21,10 @@ public class WorkController {
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     Work getWork(@PathVariable Long id) {
         return workDao.getWork(id);
+    }
+
+    @RequestMapping(value="/", method= RequestMethod.POST)
+    Work createWork(@RequestBody Work work) {
+        return workDao.createWork(work);
     }
 }
