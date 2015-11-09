@@ -29,6 +29,6 @@ public class SecurityController {
 	public void account(@RequestParam("username") String username, @RequestParam("password") String password) {
 		System.out.println(username + " " + password);
 		Account account = new Account(username, password, true);
-		accountDao.updateAccount(account, false);
+		accountDao.createAccount(account);
 	}
 }

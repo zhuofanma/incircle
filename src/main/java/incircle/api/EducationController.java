@@ -2,17 +2,15 @@ package incircle.api;
 
 import incircle.domain.dao.EducationDao;
 import incircle.domain.model.Education;
+import incircle.domain.model.Work;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhuofanma on 11/3/15.
  */
 @RestController
-@RequestMapping(value="/api/education")
+@RequestMapping(value="/api/educations")
 public class EducationController {
 
     private EducationDao educationDao;
@@ -24,5 +22,15 @@ public class EducationController {
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     Education getEducation(@PathVariable Long id) {
         return educationDao.getEducation(id);
+    }
+
+    @RequestMapping(value="/", method= RequestMethod.POST)
+    Education createEducation(@RequestBody Education education) {
+        return educationDao.createEducation(education);
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    public void deleteEducation(@PathVariable Long id) {
+        educationDao.deleteEducation(id);
     }
 }

@@ -8,4 +8,5 @@ import incircle.domain.model.Work;
 public interface WorkDao {
     Work getWork(Long id);
     Work createWork(Work work);
+    void deleteWork(Long id);
 }

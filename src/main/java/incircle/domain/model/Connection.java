@@ -1,5 +1,7 @@
 package incircle.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import incircle.account.model.Account;
 
 import javax.persistence.*;
@@ -32,19 +34,19 @@ public class Connection {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @JsonIgnore
     public Account getAccount1() {
         return account1;
     }
-
+    @JsonProperty
     public void setAccount1(Account account1) {
         this.account1 = account1;
     }
-
-        public Account getAccount2() {
+    @JsonIgnore
+    public Account getAccount2() {
         return account2;
     }
-
+    @JsonProperty
     public void setAccount2(Account account2) {
         this.account2 = account2;
     }

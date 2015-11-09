@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping(value="/api/work")
+@RequestMapping(value="/api/works")
 public class WorkController {
     private WorkDao workDao;
     @Autowired
@@ -26,5 +26,10 @@ public class WorkController {
     @RequestMapping(value="/", method= RequestMethod.POST)
     Work createWork(@RequestBody Work work) {
         return workDao.createWork(work);
+    }
+
+    @RequestMapping(value="/{id}", method= RequestMethod.DELETE)
+    public void deleteWork(@PathVariable Long id) {
+        workDao.deleteWork(id);
     }
 }

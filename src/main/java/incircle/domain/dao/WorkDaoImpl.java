@@ -24,16 +24,26 @@ public class WorkDaoImpl implements WorkDao {
         return work;
     }
 
-//    @Override
     public Work createWork(Work work) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        System.out.println(work);
-        System.out.println(work.getAccount());
+//        System.out.println(work);
+//        System.out.println(work.getAccount());
         Account fetchedAccount = session.get(Account.class, work.getAccount().getId());
         work.setAccount(fetchedAccount);
         session.save(work);
         session.getTransaction().commit();
         return work;
+    }
+
+    public void deleteWork(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Work work = (Work)session.get(Work.class, id);
+        if (work != null) {
+            session.delete(work);
+            session.flush();
+        }
+        session.getTransaction().commit();
     }
 }

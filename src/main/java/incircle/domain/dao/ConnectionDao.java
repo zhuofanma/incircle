@@ -7,4 +7,6 @@ import incircle.domain.model.Connection;
  */
 public interface ConnectionDao {
     Connection getConnection (Long id);
+    Connection createConnection(Connection connection);
+    void deleteConnection(Long id);
 }

@@ -1,11 +1,16 @@
 package incircle.account.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import incircle.domain.model.Connection;
 import incircle.domain.model.Education;
 import incircle.domain.model.Work;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import org.hibernate.annotations.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +48,8 @@ public class Account {
 	@Column(name = "willingness")
 	private Willingness willingness;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+	@OneToMany(mappedBy = "account")
+//	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
 
 	@OneToMany(mappedBy = "account")
@@ -67,12 +73,12 @@ public class Account {
 		this.enabled = enabled;
 	}
 
-	public Account(String username, String password, boolean enabled, Set<AccountRole> accountRole) {
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.accountRole = accountRole;
-	}
+//	public Account(String username, String password, boolean enabled, Set<AccountRole> accountRole) {
+//		this.username = username;
+//		this.password = password;
+//		this.enabled = enabled;
+//		this.accountRole = accountRole;
+//	}
 
 	public Long getId() {
 		return id;
@@ -94,7 +100,7 @@ public class Account {
 	public String getPassword() {
 		return this.password;
 	}
-
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -171,14 +177,20 @@ public class Account {
 	public void setWillingness(Willingness willingness) {
 		this.willingness = willingness;
 	}
-
+	@JsonIgnore
 	public Set<AccountRole> getAccountRole() {
 		return this.accountRole;
 	}
-
+	@JsonProperty
 	public void setAccountRole(Set<AccountRole> accountRole) {
 		this.accountRole = accountRole;
 	}
-
-
+	@JsonIgnore
+	public Set<Work> getWork() {
+		return work;
+	}
+	@JsonProperty
+	public void setWork(Set<Work> work) {
+		this.work = work;
+	}
 }

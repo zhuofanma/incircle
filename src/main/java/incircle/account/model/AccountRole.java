@@ -1,15 +1,25 @@
 package incircle.account.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "accounts_roles", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
+@Table(name = "accounts_roles", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "account_id" }))
 public class AccountRole {
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "account_role_id", unique = true, nullable = false)
 	private Integer userRoleId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "account_id", nullable = false)
 	private Account account;
+
+	@Column(name = "role", nullable = false, length = 45)
 	private String role;
 
 	public AccountRole() {
@@ -20,9 +30,7 @@ public class AccountRole {
 		this.role = role;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "user_role_id", unique = true, nullable = false)
+
 	public Integer getUserRoleId() {
 		return this.userRoleId;
 	}
@@ -30,18 +38,16 @@ public class AccountRole {
 	public void setUserRoleId(Integer userRoleId) {
 		this.userRoleId = userRoleId;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "username", nullable = false)
+	@JsonIgnore
 	public Account getAccount() {
 		return this.account;
 	}
-
+	@JsonProperty
 	public void setAccount(Account account) {
 		this.account = account;
 	}
 
-	@Column(name = "role", nullable = false, length = 45)
+
 	public String getRole() {
 		return this.role;
 	}

@@ -7,4 +7,6 @@ import incircle.domain.model.Education;
  */
 public interface EducationDao {
     Education getEducation(Long id);
+    Education createEducation(Education education);
+    void deleteEducation(Long id);
 }

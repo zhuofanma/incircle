@@ -1,6 +1,7 @@
 package incircle.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import incircle.account.model.Account;
 
 import javax.persistence.*;
@@ -20,8 +21,7 @@ public class Education {
     @Column(name = "EDUCATION_ID", unique = true, nullable = false)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account account;
 
@@ -94,11 +94,11 @@ public class Education {
     public boolean getIscurrent() {
         return isCurrent;
     }
-
+    @JsonIgnore
     public Account getAccount() {
         return account;
     }
-
+    @JsonProperty
     public void setAccount(Account account) {
         this.account = account;
     }

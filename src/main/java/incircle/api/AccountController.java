@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping(value="/api/account")
+@RequestMapping(value="/api/accounts")
 public class AccountController {
     private AccountDao accountDao;
     @Autowired
@@ -25,8 +25,18 @@ public class AccountController {
         return accountDao.findByAccountName(username);
     }
 
-    @RequestMapping(value="/{username}", method= RequestMethod.POST)
+    @RequestMapping(value="/", method= RequestMethod.POST)
     Account createAccount(@RequestBody Account account) {
-        return accountDao.updateAccount(account, false);
+        return accountDao.createAccount(account);
+    }
+
+    @RequestMapping(value="/{id}", method= RequestMethod.PUT)
+    Account updateAccount(@RequestBody Account account, @PathVariable Long id) {
+        return accountDao.updateAccount(account);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteAccount(@PathVariable Long id) {
+        accountDao.deleteAccount(id);
     }
 }

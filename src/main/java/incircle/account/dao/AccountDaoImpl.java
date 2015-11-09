@@ -40,24 +40,51 @@ public class AccountDaoImpl implements AccountDao {
 				.list();
 		if (accounts.size() > 0) {
 			account = accounts.get(0);
-			Hibernate.initialize(account.getAccountRole());
+//			Hibernate.initialize(account.getAccountRole());
 		}
 		session.getTransaction().commit();
 		return account;
 	}
-	
-	public Account updateAccount(Account account, boolean update) {
+
+	public Account createAccount(Account account) {
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-        if (update)
-        	session.update(account);
-        else
-        	session.save(account);
+		session.save(account);
+		session.getTransaction().commit();
+		AccountRole accountRole = new AccountRole(account, "USER");
+		accountRoleDao.updateRole(accountRole, false);
+		return account;
+	}
+	
+	public Account updateAccount(Account account) {
+		if (account.getPassword() != null) {
+			account.setPassword(passwordEncoder.encode(account.getPassword()));
+		} else {
+			Session session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			String fetchedPassword = ((Account) session.get(Account.class, account.getId())).getPassword();
+			session.getTransaction().commit();
+			account.setPassword(fetchedPassword);
+		}
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		session.update(account);
         session.getTransaction().commit();
-        AccountRole accountRole = new AccountRole(account, "USER");
-        accountRoleDao.updateRole(accountRole, update);
+//        AccountRole accountRole = new AccountRole(account, "USER");
+//        accountRoleDao.updateRole(accountRole, update);
         return account;
+	}
+
+	public void deleteAccount(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Account account = (Account)session.get(Account.class, id);
+		if (account != null) {
+			session.delete(account);
+			session.flush();
+		}
+		session.getTransaction().commit();
 	}
 
 }
