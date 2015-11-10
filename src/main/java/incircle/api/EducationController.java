@@ -29,6 +29,11 @@ public class EducationController {
         return educationDao.createEducation(education);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    Education updateEducation(@RequestBody Education education, @PathVariable Long id) {
+        return educationDao.updateEducation(education);
+    }
+
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
     public void deleteEducation(@PathVariable Long id) {
         educationDao.deleteEducation(id);

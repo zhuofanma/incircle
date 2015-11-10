@@ -49,7 +49,7 @@ public class Account {
 	private Willingness willingness;
 
 	@OneToMany(mappedBy = "account")
-//	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
 
 	@OneToMany(mappedBy = "account")
@@ -73,12 +73,12 @@ public class Account {
 		this.enabled = enabled;
 	}
 
-//	public Account(String username, String password, boolean enabled, Set<AccountRole> accountRole) {
-//		this.username = username;
-//		this.password = password;
-//		this.enabled = enabled;
-//		this.accountRole = accountRole;
-//	}
+	public Account(String username, String password, boolean enabled, Set<AccountRole> accountRole) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.accountRole = accountRole;
+	}
 
 	public Long getId() {
 		return id;

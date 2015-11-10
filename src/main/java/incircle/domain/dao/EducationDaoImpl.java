@@ -34,6 +34,20 @@ public class EducationDaoImpl implements EducationDao{
         return education;
     }
 
+    public Education updateEducation(Education education) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        //TODO: use session.load instead of session.get
+        Account fetchedAccount = (session.get(Education.class, education.getId())).getAccount();
+        session.getTransaction().commit();
+        education.setAccount(fetchedAccount);
+        session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.update(education);
+        session.getTransaction().commit();
+        return education;
+    }
+
     public void deleteEducation(Long id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
