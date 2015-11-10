@@ -28,6 +28,11 @@ public class WorkController {
         return workDao.createWork(work);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    Work updateWork(@RequestBody Work work, @PathVariable Long id) {
+        return workDao.updateWork(work);
+    }
+
     @RequestMapping(value="/{id}", method= RequestMethod.DELETE)
     public void deleteWork(@PathVariable Long id) {
         workDao.deleteWork(id);

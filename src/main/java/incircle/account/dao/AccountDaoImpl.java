@@ -2,6 +2,7 @@ package incircle.account.dao;
 
 import incircle.account.model.Account;
 import incircle.account.model.AccountRole;
+import incircle.domain.model.Work;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -85,6 +86,12 @@ public class AccountDaoImpl implements AccountDao {
 			session.flush();
 		}
 		session.getTransaction().commit();
+	}
+
+	public List<Work> getAllWorks(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		List<Work> result = session.createQuery("")
 	}
 
 }

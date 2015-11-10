@@ -36,6 +36,19 @@ public class WorkDaoImpl implements WorkDao {
         return work;
     }
 
+    public Work updateWork(Work work) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        //TODO: use session.load instead of session.get
+        Account fetchedAccount = (session.get(Work.class, work.getId())).getAccount();
+        session.getTransaction().commit();
+        work.setAccount(fetchedAccount);
+        session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.update(work);
+        session.getTransaction().commit();
+        return work;
+    }
     public void deleteWork(Long id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
