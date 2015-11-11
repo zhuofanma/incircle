@@ -2,12 +2,17 @@ package incircle.account.dao;
 
 import incircle.account.model.Account;
 import incircle.account.model.AccountRole;
+import incircle.domain.model.Connection;
+import incircle.domain.model.Education;
 import incircle.domain.model.Work;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +96,42 @@ public class AccountDaoImpl implements AccountDao {
 	public List<Work> getAllWorks(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		List<Work> result = session.createQuery("")
+		Account account = (Account)session.get(Account.class, id);
+		//TODO: to add error control, such as if account = null
+		@SuppressWarnings("unchecked")
+		List<Work> result = session.createCriteria(Work.class)
+							.add(Restrictions.eq("account", account))
+							.list();
+		session.getTransaction().commit();
+		return result;
 	}
 
+	public List<Education> getAllEducations(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Account account = (Account)session.get(Account.class, id);
+		//TODO: to add error control, such as if account = null
+		@SuppressWarnings("unchecked")
+		List<Education> result = session.createCriteria(Education.class)
+				.add(Restrictions.eq("account", account))
+				.list();
+		session.getTransaction().commit();
+		return result;
+	}
+
+	public ArrayList<Long> getAllConnectionIds(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Account account = (Account)session.get(Account.class, id);
+		@SuppressWarnings("unchecked")
+		List<Connection> connectionList = session.createCriteria(Connection.class)
+											.add(Restrictions.eq("account1", account))
+											.list();
+		ArrayList<Long> result = new ArrayList<Long>();
+		for (Connection connection: connectionList) {
+			result.add(connection.getAccount2().getId());
+		}
+		session.getTransaction().commit();
+		return result;
+	}
 }

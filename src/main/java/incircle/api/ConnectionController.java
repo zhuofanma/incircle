@@ -21,8 +21,8 @@ public class ConnectionController {
         return connectionDao.getConnection(id);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    Connection connection(@RequestBody Connection connection) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    Connection createConnection(@RequestBody Connection connection) {
         return connectionDao.createConnection(connection);
     }
 

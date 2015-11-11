@@ -24,7 +24,7 @@ public class EducationController {
         return educationDao.getEducation(id);
     }
 
-    @RequestMapping(value="/", method= RequestMethod.POST)
+    @RequestMapping(value="", method= RequestMethod.POST)
     Education createEducation(@RequestBody Education education) {
         return educationDao.createEducation(education);
     }

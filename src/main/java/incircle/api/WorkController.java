@@ -23,7 +23,7 @@ public class WorkController {
         return workDao.getWork(id);
     }
 
-    @RequestMapping(value="/", method= RequestMethod.POST)
+    @RequestMapping(value="", method= RequestMethod.POST)
     Work createWork(@RequestBody Work work) {
         return workDao.createWork(work);
     }
