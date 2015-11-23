@@ -63,20 +63,23 @@ public class AccountDaoImpl implements AccountDao {
 		return account;
 	}
 	
-	public Account updateAccount(Account account) {
+	public Account updateAccount(Account account, Long id) {
+		account.setId(id);
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Account fetchedAccount = session.get(Account.class, id);
+		session.getTransaction().commit();
+		account.setUsername(fetchedAccount.getUsername());
+		account.setEnabled(fetchedAccount.isEnabled());
 		if (account.getPassword() != null) {
 			account.setPassword(passwordEncoder.encode(account.getPassword()));
 		} else {
-			Session session = sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			String fetchedPassword = ((Account) session.get(Account.class, account.getId())).getPassword();
-			session.getTransaction().commit();
-			account.setPassword(fetchedPassword);
+			account.setPassword(fetchedAccount.getPassword());
 		}
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.update(account);
-        session.getTransaction().commit();
+		Session session2 = sessionFactory.getCurrentSession();
+		session2.beginTransaction();
+		session2.update(account);
+        session2.getTransaction().commit();
 //        AccountRole accountRole = new AccountRole(account, "USER");
 //        accountRoleDao.updateRole(accountRole, update);
         return account;

@@ -11,7 +11,7 @@ import java.util.List;
 public interface AccountDao {
 	Account findByAccountName(String username);
 	Account createAccount(Account account);
-	Account updateAccount(Account account);
+	Account updateAccount(Account account, Long id);
 	void deleteAccount(Long id);
 	List<Work> getAllWorks(Long id);
 	List<Education> getAllEducations(Long id);

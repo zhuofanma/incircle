@@ -51,7 +51,7 @@ public class AccountController {
 
     @RequestMapping(value="/{id}", method= RequestMethod.PUT)
     Account updateAccount(@RequestBody Account account, @PathVariable Long id) {
-        return accountDao.updateAccount(account);
+        return accountDao.updateAccount(account, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
