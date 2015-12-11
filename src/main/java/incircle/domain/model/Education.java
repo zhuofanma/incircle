@@ -37,7 +37,7 @@ public class Education {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endtime;
 
-    private boolean isCurrent;
+    private boolean iscurrent;
 
     public Long getId() {
         return id;
@@ -87,12 +87,12 @@ public class Education {
         this.endtime = endtime;
     }
 
-    public void setIsCurrent(boolean isCurrent) {
-        this.isCurrent = isCurrent;
+    public void setIscurrent(boolean iscurrent) {
+        this.iscurrent = iscurrent;
     }
 
     public boolean getIscurrent() {
-        return isCurrent;
+        return iscurrent;
     }
     @JsonIgnore
     public Account getAccount() {

@@ -37,7 +37,7 @@ public class Work {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endtime;
 
-    private boolean isCurrent;
+    private boolean iscurrent;
 
     public Long getId() {
         return id;
@@ -87,12 +87,12 @@ public class Work {
         this.endtime = endtime;
     }
 
-    public boolean getIsCurrent() {
-        return isCurrent;
+    public boolean getIscurrent() {
+        return iscurrent;
     }
 
-    public void setIsCurrent(Boolean isCurrent) {
-        this.isCurrent = isCurrent;
+    public void setIscurrent(Boolean iscurrent) {
+        this.iscurrent = iscurrent;
     }
     @JsonIgnore
     public Account getAccount() {

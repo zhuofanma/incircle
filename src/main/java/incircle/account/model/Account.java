@@ -11,6 +11,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,9 +45,10 @@ public class Account {
 
 	private String phone;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "willingness")
-	private Willingness willingness;
+	private boolean jumpwill;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date jumpdate;
 
 	@OneToMany(mappedBy = "account")
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
@@ -170,13 +172,22 @@ public class Account {
 		this.phone = phone;
 	}
 
-	public Willingness getWillingness() {
-		return willingness;
+	public Date getJumpdate() {
+		return jumpdate;
 	}
 
-	public void setWillingness(Willingness willingness) {
-		this.willingness = willingness;
+	public void setJumpdate(Date jumpdate) {
+		this.jumpdate = jumpdate;
 	}
+
+	public boolean isJumpwill() {
+		return jumpwill;
+	}
+
+	public void setJumpwill(boolean jumpwill) {
+		this.jumpwill = jumpwill;
+	}
+
 	@JsonIgnore
 	public Set<AccountRole> getAccountRole() {
 		return this.accountRole;
