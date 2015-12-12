@@ -45,7 +45,7 @@ public class Account {
 
 	private String phone;
 
-	private boolean jumpwill;
+	private Boolean jumpwill;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date jumpdate;
@@ -107,7 +107,6 @@ public class Account {
 		this.password = password;
 	}
 
-	
 	public boolean isEnabled() {
 		return this.enabled;
 	}
@@ -180,11 +179,11 @@ public class Account {
 		this.jumpdate = jumpdate;
 	}
 
-	public boolean isJumpwill() {
+	public Boolean getJumpwill() {
 		return jumpwill;
 	}
 
-	public void setJumpwill(boolean jumpwill) {
+	public void setJumpwill(Boolean jumpwill) {
 		this.jumpwill = jumpwill;
 	}
 
