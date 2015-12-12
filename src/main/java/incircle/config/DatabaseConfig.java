@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-//import org.hibernate.cfg.Configuration;
-
-
 @Configuration
 public class DatabaseConfig {
 
@@ -20,15 +17,4 @@ public class DatabaseConfig {
 		System.out.println(factory != null);
 		return factory;
     }
-//	
-
-	@Bean
-	public DriverManagerDataSource dataSource() {
-	    DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-	    driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-	    driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/incircle");
-	    driverManagerDataSource.setUsername("god");
-	    driverManagerDataSource.setPassword("god");
-	    return driverManagerDataSource;
-	}		
 }

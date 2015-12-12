@@ -36,6 +36,13 @@ public class AccountDaoImpl implements AccountDao {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	public AccountDaoImpl() {}
+
+	// For the test purpose
+	public AccountDaoImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	@SuppressWarnings("unchecked")
 	public Account findByAccountName(String username) {
 		Account account = null;
