@@ -71,11 +71,41 @@ public class AccountDaoImpl implements AccountDao {
 		session.getTransaction().commit();
 		account.setUsername(fetchedAccount.getUsername());
 		account.setEnabled(fetchedAccount.isEnabled());
+		if (account.getFirstname() == null) {
+			account.setFirstname(fetchedAccount.getFirstname());
+		}
+		if (account.getLastname() == null) {
+			account.setLastname(fetchedAccount.getLastname());
+		}
+		if (account.getWorkemail() == null) {
+			account.setWorkemail(fetchedAccount.getWorkemail());
+		}
+		if (account.getPersonalemail() == null) {
+			account.setPersonalemail(fetchedAccount.getPersonalemail());
+		}
+		if (account.getPhone() == null) {
+			account.setPhone(fetchedAccount.getPhone());
+		}
+		if (account.getJumpwill() == null) {
+			account.setJumpwill(fetchedAccount.getJumpwill());
+		} else if (account.getJumpwill() == false) {
+			account.setJumpdate(null);
+		}
+//		if (account.getJumpwill() == false) {
+//			account.setJumpdate(null);
+//		}
+		if (account.getPicture() == null) {
+			account.setPicture(fetchedAccount.getPicture());
+		}
+		if (account.getVideo() == null) {
+			account.setVideo(fetchedAccount.getVideo());
+		}
 		if (account.getPassword() != null) {
 			account.setPassword(passwordEncoder.encode(account.getPassword()));
 		} else {
 			account.setPassword(fetchedAccount.getPassword());
 		}
+
 		Session session2 = sessionFactory.getCurrentSession();
 		session2.beginTransaction();
 		session2.update(account);
