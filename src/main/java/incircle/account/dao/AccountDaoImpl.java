@@ -38,7 +38,7 @@ public class AccountDaoImpl implements AccountDao {
 
 	public AccountDaoImpl() {}
 
-	private final static String imageFolerPath = WebConfig.imageFolerPath;
+	private final static String imageFolerPath = WebConfig.imageFolderPath;
 
 	// For the test purpose
 	public AccountDaoImpl(SessionFactory sessionFactory) {
@@ -179,13 +179,13 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public void uploadImage(MultipartFile file, Account account) throws Exception {
-		String filePath = WebConfig.imageFolerPath + account.getUsername() + ".jpg";
+		String filePath = WebConfig.imageFolderPath + account.getUsername() + ".jpg";
 		CommonUtils.uploadFile(file, filePath);
 	}
 
 	@Override
 	public void uploadVideo(MultipartFile file, Account account) throws Exception {
-		String filePath = WebConfig.videoFolerPath + account.getUsername() + ".mp4";
+		String filePath = WebConfig.videoFolderPath + account.getUsername() + ".mp4";
 		CommonUtils.uploadFile(file, filePath);
 	}
 }
