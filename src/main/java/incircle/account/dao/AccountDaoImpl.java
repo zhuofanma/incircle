@@ -2,17 +2,17 @@ package incircle.account.dao;
 
 import incircle.account.model.Account;
 import incircle.account.model.AccountRole;
+import incircle.config.WebConfig;
 import incircle.domain.model.Connection;
 import incircle.domain.model.Education;
 import incircle.domain.model.Work;
-import org.hibernate.Hibernate;
+import incircle.utils.CommonUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +37,8 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	public AccountDaoImpl() {}
+
+	private final static String imageFolerPath = WebConfig.imageFolerPath;
 
 	// For the test purpose
 	public AccountDaoImpl(SessionFactory sessionFactory) {
@@ -173,5 +175,17 @@ public class AccountDaoImpl implements AccountDao {
 		}
 		session.getTransaction().commit();
 		return result;
+	}
+
+	@Override
+	public void uploadImage(MultipartFile file, Account account) throws Exception {
+		String filePath = WebConfig.imageFolerPath + account.getUsername() + ".jpg";
+		CommonUtils.uploadFile(file, filePath);
+	}
+
+	@Override
+	public void uploadVideo(MultipartFile file, Account account) throws Exception {
+		String filePath = WebConfig.videoFolerPath + account.getUsername() + ".mp4";
+		CommonUtils.uploadFile(file, filePath);
 	}
 }

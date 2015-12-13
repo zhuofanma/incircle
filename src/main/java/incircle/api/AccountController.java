@@ -58,5 +58,4 @@ public class AccountController {
     public void deleteAccount(@PathVariable Long id) {
         accountDao.deleteAccount(id);
     }
-
 }
