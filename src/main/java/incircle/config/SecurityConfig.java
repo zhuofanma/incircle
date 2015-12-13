@@ -39,18 +39,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {		
 		http
-////      	.httpBasic()
-////      		.and()
-		.formLogin().and()
-//        .authorizeRequests().antMatchers("/**").permitAll();
-//    		.antMatchers("/catalog/index.html", "/logout", "/signup").permitAll()
-//    		.antMatchers(HttpMethod.GET, "/**").permitAll()
-//    		.antMatchers("/account").authenticated()
-//    		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/catalog").and()
+      	.httpBasic().and()
+//		.formLogin().and()
+        .authorizeRequests()
+    		.antMatchers("/login.html", "/upload.html", "/logout", "/signup").permitAll()
+    		.antMatchers(HttpMethod.GET, "/**").permitAll()
+    		.antMatchers("/account").authenticated()
+    		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/").and()
+			.requiresChannel().anyRequest().requiresSecure().and()
     		.csrf()
-    		.disable();
-//    		.csrfTokenRepository(csrfTokenRepository()).and()
-//			.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+//    		.disable();
+    		.csrfTokenRepository(csrfTokenRepository()).and()
+			.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 	}
 	
 	@Bean
