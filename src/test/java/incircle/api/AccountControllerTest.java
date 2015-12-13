@@ -4,6 +4,7 @@ import incircle.App;
 import incircle.account.dao.AccountDao;
 import incircle.account.model.Account;
 import incircle.config.SecurityConfig;
+import incircle.domain.model.Work;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Assert;
@@ -24,12 +25,17 @@ import org.springframework.web.context.WebApplicationContext;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Set;
 
+import static com.oracle.util.Checksums.update;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
@@ -76,6 +82,8 @@ public class AccountControllerTest {
                 .apply(springSecurity()).build();
         if (accountDao.findByAccountName("baichi") == null) {
             account = new Account("baichi", "baichi", true);
+            account.setJumpwill(true);
+            account.setJumpdate(new Date());
             accountDao.createAccount(account);
         }
     }
@@ -100,6 +108,19 @@ public class AccountControllerTest {
                         .content(accountJson).contentType(contentType)
         ).andExpect(status().isOk());
         assertNotNull(accountDao.findByAccountName("happy"));
+    }
+
+    @Test
+    public void testUpdateAccount() throws Exception {
+        Long id = accountDao.findByAccountName("baichi").getId();
+        Account newAccount = new Account();
+        newAccount.setJumpwill(false);
+        String accountJson = this.json(newAccount);
+        mockMvc.perform(
+                put("/api/accounts/" + id.toString())
+                .content(accountJson).contentType(contentType)
+        ).andExpect(status().isOk());
+        assertNull(accountDao.findByAccountName("baichi").getJumpdate());
     }
 
     protected String json(Object o) throws IOException {
