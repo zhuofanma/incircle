@@ -16,7 +16,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 
 	public final static String imageFolderPath = "/Users/zhuofanma/incircle/images/";
 	public final static String imageResourcePath = "file:///Users/zhuofanma/incircle/images/";
-	public final static String videoFolderPath = "/Users/zhuofanma/incircle/images/videos/";
+	public final static String videoFolderPath = "/Users/zhuofanma/incircle/videos/";
 	public final static String videoResourcePath = "file:///Users/zhuofanma/incircle/videos/";
 
 	
