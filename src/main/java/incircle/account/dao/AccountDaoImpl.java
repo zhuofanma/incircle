@@ -10,6 +10,7 @@ import incircle.utils.CommonUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,10 +37,10 @@ public class AccountDaoImpl implements AccountDao {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	@Autowired
+	private WebConfig webConfig;
+
 	public AccountDaoImpl() {}
-
-	private final static String imageFolerPath = WebConfig.imageFolderPath;
-
 	// For the test purpose
 	public AccountDaoImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -179,13 +180,13 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public void uploadImage(MultipartFile file, Account account) throws Exception {
-		String filePath = WebConfig.imageFolderPath + account.getUsername() + ".jpg";
+		String filePath = webConfig.resourcePaths.imageFolderPath() + account.getUsername() + ".jpg";
 		CommonUtils.uploadFile(file, filePath);
 	}
 
 	@Override
 	public void uploadVideo(MultipartFile file, Account account) throws Exception {
-		String filePath = WebConfig.videoFolderPath + account.getUsername() + ".mp4";
+		String filePath = webConfig.resourcePaths.videoFolderPath() + account.getUsername() + ".mp4";
 		CommonUtils.uploadFile(file, filePath);
 	}
 }
