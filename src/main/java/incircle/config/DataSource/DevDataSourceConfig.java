@@ -1,4 +1,4 @@
-package incircle.config.DataSource;
+package incircle.config.datasource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
